@@ -1,3 +1,7 @@
+<?php
+require 'config.php';
+$url = BASE_URL . 'http://localhost:8000/fitnessWeb/helper/submit_registration.php';
+?>
 <!-- Registration Modal -->
 <div class="modal fade animate__animated animate__fadeInDown" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -12,7 +16,7 @@
             <!-- Body -->
             <div class="modal-body">
                 <p class="text-muted text-center mb-4">Buat akun Anda sekarang untuk menikmati semua fitur kami.</p>
-                <form action="fitnessWeb/helper/submit_registration.php" method="POST">
+                <form action="<?= $url ?>" method="POST">
                     <div class="mb-3">
                         <label for="username" class="form-label">
                             <i class="bi bi-person-fill"></i> Username
@@ -36,7 +40,6 @@
                             </button>
                         </div>
                     </div>
-
                     <div class="mb-3">
                         <label for="password2" class="form-label">
                             <i class="bi bi-lock-fill"></i> Password 2
@@ -53,10 +56,10 @@
                 <hr class="my-4">
                 <p class="text-center text-muted">Atau daftar menggunakan:</p>
                 <div class="d-flex justify-content-center gap-3">
-                    <a href="../API/google_register.php" class="btn btn-outline-danger w-100">
+                    <a href="../API/google_register.php" class="btn btn-outline-danger col-12">
                         <i class="bi bi-google"></i> Google
                     </a>
-                    <a href="../API/facebook_register.php" class="btn btn-outline-primary w-100">
+                    <a href="../API/facebook_register.php" class="btn btn-outline-primary col-12">
                         <i class="bi bi-facebook"></i> Facebook
                     </a>
                 </div>
