@@ -5,10 +5,6 @@ function redirectWithAlert($message, $alertType) {
     exit();
 }
 
-// Contoh penggunaan
-
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
