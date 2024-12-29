@@ -12,7 +12,7 @@
             <!-- Body -->
             <div class="modal-body">
                 <p class="text-muted text-center mb-4">Buat akun Anda sekarang untuk menikmati semua fitur kami.</p>
-                <form action="../helper/submit_registration.php" method="POST">
+                <form action="fitnessWeb/helper/submit_registration.php" method="POST">
                     <div class="mb-3">
                         <label for="username" class="form-label">
                             <i class="bi bi-person-fill"></i> Username

@@ -7,7 +7,7 @@ $(document).ready(function () {
 
         // Kirim data dengan AJAX
         $.ajax({
-            url: '../../helper/submit_registration.php', // File PHP untuk menangani submit
+            url: '/fitnessWeb/helper/submit_registration.php', // File PHP untuk menangani submit
             type: 'POST',
             data: formData,
             success: function (response) {
