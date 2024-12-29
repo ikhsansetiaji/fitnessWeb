@@ -37,11 +37,10 @@ $(document).ready(function () {
 
         $.ajax({
             url: `${BASE_URL}helper/submit_registration.php`,
-            type: 'POST',
+            type: 'POST', // Pastikan ini menggunakan 'POST'
             data: formData,
             success: function (response) {
                 if (response.status === 'success') {
-                    // Redirect ke halaman pembayaran dengan parameter
                     window.location.href = `${BASE_URL}user/payment.php?member_id=${response.member_id}&package_id=${response.package_id}`
                 } else {
                     Swal.fire({
@@ -53,7 +52,6 @@ $(document).ready(function () {
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.error('Error:', textStatus, errorThrown)
                 Swal.fire({
                     title: 'Error!',
                     text: 'Terjadi kesalahan. Mohon coba lagi nanti.',
