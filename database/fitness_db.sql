@@ -4,11 +4,7 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 CREATE DATABASE IF NOT EXISTS fitness_db;
-
--- Gunakan database yang baru dibuat
 USE fitness_db;
-
--- --------------------------------------------------------
 
 -- Tabel: menu_paket
 CREATE TABLE `menu_paket` (
@@ -21,9 +17,9 @@ CREATE TABLE `menu_paket` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- -- Dumping data untuk tabel `menu_paket`
--- INSERT INTO `menu_paket` (`nama`, `deskripsi`, `harga`, `durasi`) VALUES
--- ('Paket A', 'Paket fitness untuk pemula', 500000, 30),
--- ('Paket B', 'Paket fitness lanjutan', 750000, 60);
+INSERT INTO `menu_paket` (`nama`, `deskripsi`, `harga`, `durasi`) VALUES
+('Paket A', 'Paket fitness untuk pemula', 500000, 30),
+('Paket B', 'Paket fitness lanjutan', 750000, 60);
 
 -- --------------------------------------------------------
 
@@ -71,11 +67,9 @@ CREATE TABLE login (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- -- Dumping data untuk tabel `login`
--- INSERT INTO `login` (`username`, `password`) VALUES
--- ('admin', MD5('123456')),
--- ('staff', MD5('staff123'));
+INSERT INTO `login` (`username`, `password`) VALUES
+('admin', MD5('$2y$10$U9D6Ki14C1SphDQD7G7M.ev.RZKaPF9v1PihgBbOc7.7f87t88qMK')),
 
--- --------------------------------------------------------
 -- Tabel: member
 CREATE TABLE `member` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -89,39 +83,37 @@ CREATE TABLE `member` (
   FOREIGN KEY (`menu_paket_id`) REFERENCES `menu_paket`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
+
+-- CREATE TABLE `menu_jadwal_latihan` (
+--     `id` INT AUTO_INCREMENT PRIMARY KEY,
+--     `pelatih_id` INT NOT NULL,        -- Relasi ke tabel pelatih
+--     `member_id` INT NOT NULL,         -- Relasi ke tabel member
+--     `nama_sesi` VARCHAR(100) NOT NULL, -- Nama sesi latihan
+--     `deskripsi` TEXT,                  -- Deskripsi sesi latihan (opsional)
+--     `waktu_mulai` DATETIME NOT NULL,  -- Waktu mulai sesi
+--     `waktu_selesai` DATETIME NOT NULL, -- Waktu selesai sesi
+--     `lokasi` VARCHAR(255),            -- Lokasi tempat latihan
+--     `status` ENUM('Dijadwalkan', 'Selesai', 'Dibatalkan') DEFAULT 'Dijadwalkan', -- Status sesi
+--     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--     CONSTRAINT `fk_jadwal_pelatih` FOREIGN KEY (`pelatih_id`) REFERENCES `pelatih` (`id`) ON DELETE CASCADE,
+--     CONSTRAINT `fk_jadwal_member` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`) ON DELETE CASCADE
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
-CREATE TABLE `menu_jadwal_latihan` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `pelatih_id` INT NOT NULL,        -- Relasi ke tabel pelatih
-    `member_id` INT NOT NULL,         -- Relasi ke tabel member
-    `nama_sesi` VARCHAR(100) NOT NULL, -- Nama sesi latihan
-    `deskripsi` TEXT,                  -- Deskripsi sesi latihan (opsional)
-    `waktu_mulai` DATETIME NOT NULL,  -- Waktu mulai sesi
-    `waktu_selesai` DATETIME NOT NULL, -- Waktu selesai sesi
-    `lokasi` VARCHAR(255),            -- Lokasi tempat latihan
-    `status` ENUM('Dijadwalkan', 'Selesai', 'Dibatalkan') DEFAULT 'Dijadwalkan', -- Status sesi
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    CONSTRAINT `fk_jadwal_pelatih` FOREIGN KEY (`pelatih_id`) REFERENCES `pelatih` (`id`) ON DELETE CASCADE,
-    CONSTRAINT `fk_jadwal_member` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-CREATE TABLE `menu_kehadiran_member` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `member_id` INT NOT NULL,          -- Relasi ke tabel member
-    `jadwal_id` INT NOT NULL,          -- Relasi ke tabel jadwal
-    `status_kehadiran` ENUM('Hadir', 'Tidak Hadir', 'Izin') DEFAULT 'Tidak Hadir', -- Status kehadiran
-    `catatan` TEXT,                    -- Catatan tambahan (opsional)
-    `waktu_check_in` DATETIME DEFAULT NULL, -- Waktu member check-in
-    `waktu_check_out` DATETIME DEFAULT NULL, -- Waktu member check-out
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    CONSTRAINT `fk_kehadiran_member` FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE,
-    CONSTRAINT `fk_kehadiran_jadwal` FOREIGN KEY (`jadwal_id`) REFERENCES `menu_jadwal_latihan`(`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- CREATE TABLE `menu_kehadiran_member` (
+--     `id` INT AUTO_INCREMENT PRIMARY KEY,
+--     `member_id` INT NOT NULL,          -- Relasi ke tabel member
+--     `jadwal_id` INT NOT NULL,          -- Relasi ke tabel jadwal
+--     `status_kehadiran` ENUM('Hadir', 'Tidak Hadir', 'Izin') DEFAULT 'Tidak Hadir', -- Status kehadiran
+--     `catatan` TEXT,                    -- Catatan tambahan (opsional)
+--     `waktu_check_in` DATETIME DEFAULT NULL, -- Waktu member check-in
+--     `waktu_check_out` DATETIME DEFAULT NULL, -- Waktu member check-out
+--     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--     CONSTRAINT `fk_kehadiran_member` FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE,
+--     CONSTRAINT `fk_kehadiran_jadwal` FOREIGN KEY (`jadwal_id`) REFERENCES `menu_jadwal_latihan`(`id`) ON DELETE CASCADE
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -142,18 +134,18 @@ CREATE TABLE `menu_kehadiran_member` (
 
 
 -- --------------------------------------------------------
-CREATE TABLE IF NOT EXISTS `pembayaran_member` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `member_id` INT NOT NULL,  -- Menghubungkan dengan tabel member
-    `jumlah_pembayaran` DECIMAL(10, 2) NOT NULL,  -- Jumlah pembayaran
-    `metode_pembayaran` ENUM('Tunai', 'Transfer', 'Kartu Kredit', 'E-Wallet') NOT NULL,  -- Metode pembayaran
-    `tanggal_pembayaran` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Tanggal dan waktu pembayaran
-    `status_pembayaran` ENUM('Lunas', 'Belum Lunas', 'Dibatalkan') DEFAULT 'Belum Lunas',  -- Status pembayaran
-    `deskripsi` TEXT,  -- Keterangan tambahan, misalnya alasan pembatalan
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Waktu entri data
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- Waktu pembaruan data
-    FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE  -- Relasi dengan tabel member
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- CREATE TABLE IF NOT EXISTS `pembayaran_member` (
+--     `id` INT AUTO_INCREMENT PRIMARY KEY,
+--     `member_id` INT NOT NULL,  -- Menghubungkan dengan tabel member
+--     `jumlah_pembayaran` DECIMAL(10, 2) NOT NULL,  -- Jumlah pembayaran
+--     `metode_pembayaran` ENUM('Tunai', 'Transfer', 'Kartu Kredit', 'E-Wallet') NOT NULL,  -- Metode pembayaran
+--     `tanggal_pembayaran` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Tanggal dan waktu pembayaran
+--     `status_pembayaran` ENUM('Lunas', 'Belum Lunas', 'Dibatalkan') DEFAULT 'Belum Lunas',  -- Status pembayaran
+--     `deskripsi` TEXT,  -- Keterangan tambahan, misalnya alasan pembatalan
+--     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Waktu entri data
+--     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- Waktu pembaruan data
+--     FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE  -- Relasi dengan tabel member
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `saran_dan_masukan` (
@@ -192,11 +184,10 @@ CREATE TABLE contact_messages (
 );
 
 -- --------------------------------------------------------
--- AUTO_INCREMENT untuk tabel yang sudah ada
-ALTER TABLE `login`
-  MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+-- ALTER TABLE `login`
+--   MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
-ALTER TABLE `member`
-  MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+-- ALTER TABLE `member`
+--   MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
-COMMIT;
+-- COMMIT;

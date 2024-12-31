@@ -1,6 +1,7 @@
 <?php
 session_start();
-function redirectWithAlert($message, $alertType) {
+function redirectWithAlert($message, $alertType)
+{
     header("Location: ../index.php?alert_message=" . urlencode($message) . "&alert_type=$alertType");
     exit();
 }
@@ -62,4 +63,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     redirectWithAlert('Metode request tidak valid.', 'error');
 }
-?>

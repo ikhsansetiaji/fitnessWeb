@@ -1,7 +1,3 @@
-<?php
-require 'config.php';
-$url = BASE_URL . 'http://localhost:8000/fitnessWeb/helper/submit_registration.php';
-?>
 <!-- Registration Modal -->
 <div class="modal fade animate__animated animate__fadeInDown" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

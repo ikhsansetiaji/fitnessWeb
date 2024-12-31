@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->execute()) {
         // Simpan pesan sukses di session
         $_SESSION['toast_message'] = "Pesan berhasil dikirim! Terima kasih telah menghubungi kami.";
-        header("Location: ../../index.php");
+        header("Location: ../../index.php#contact");
         exit();
     } else {
         echo "Terjadi kesalahan. Silakan coba lagi.";
@@ -29,4 +29,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
     $conn->close();
 }
-?>

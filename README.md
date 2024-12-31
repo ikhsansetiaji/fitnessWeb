@@ -5,6 +5,6 @@ admin:
 http://localhost/projectpwbsip/login.php
 
 DONE
-login admin
+login admin pw: 12345
 
 mantap
