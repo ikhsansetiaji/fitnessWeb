@@ -1,9 +1,9 @@
 <?php
 // Koneksi ke database
 $host = 'localhost';
-$dbname = 'fitness_db';
-$username = 'root';
-$password = '';
+$dbname = 'rmvpvicw_rental	';
+$username = 'rmvpvicw_admin';
+$password = 'AdminPassword_69';
 
 $conn = new mysqli($host, $username, $password, $dbname);
 
