@@ -1,5 +1,4 @@
 <?php
-// require __DIR__ . 'vendor/autoload.php';
 session_start();
 include "helper/koneksi.php";
 
@@ -47,7 +46,6 @@ include "helper/koneksi.php";
     <?php include 'layout/toast_login.php'; ?>
     <?php include 'layout/toast_notify.php'; ?>
     <?php include 'user/modal/purchase_package.php'; ?>
-    <!-- <?php include 'helper/submit_registration.php'; ?> -->
 
     <!-- Footer -->
     <?php include 'layout/footer.php'; ?>
@@ -56,7 +54,7 @@ include "helper/koneksi.php";
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- <script src="assets/js/user.js"></script> -->
+    <script src="assets/js/user.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
