@@ -1,64 +1,96 @@
-
 $(document).ready(function () {
   // Handle form submit dengan AJAX
   $('#registrationForm').on('submit', function (e) {
-    e.preventDefault(); // Cegah form reload
+      e.preventDefault(); // Cegah reload halaman
 
-    // Validasi input
-    const username = $('#username').val().trim();
-    const email = $('#email').val().trim();
-    const password1 = $('#password1').val().trim();
-    const password2 = $('#password2').val().trim();
+      // Ambil nilai input
+      const username = $('#username').val().trim();
+      const email = $('#email').val().trim();
+      const password1 = $('#password1').val().trim();
+      const password2 = $('#password2').val().trim();
 
-    if (!username || !email || !password1 || !password2) {
-      Swal.fire({
-        title: 'Error!',
-        text: 'Semua field harus diisi!',
-        icon: 'error',
-        confirmButtonText: 'OK',
-      });
-      return;
-    }
-
-    if (password1 !== password2) {
-      Swal.fire({
-        title: 'Error!',
-        text: 'Password tidak cocok!',
-        icon: 'error',
-        confirmButtonText: 'OK',
-      });
-      return;
-    }
-
-    // Jika validasi lolos, kirim data dengan AJAX
-    const formData = $(this).serialize();
-
-    $.ajax({
-      url: `../../helper/submit_registration.php`,
-      type: 'POST', // Pastikan ini menggunakan 'POST'
-      data: formData,
-      success: function (response) {
-        if (response.status === 'success') {
-          window.location.href = `${BASE_URL}user/payment.php?member_id=${response.member_id}&package_id=${response.package_id}`;
-        } else {
+      // Validasi input
+      if (!username || !email || !password1 || !password2) {
           Swal.fire({
-            title: 'Error!',
-            text: response.message,
-            icon: 'error',
-            confirmButtonText: 'OK',
+              title: 'Error!',
+              text: 'Semua field harus diisi!',
+              icon: 'error',
+              confirmButtonText: 'OK',
           });
-        }
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        Swal.fire({
-          title: 'Error!',
-          text: 'Terjadi kesalahan. Mohon coba lagi nanti.',
-          icon: 'error',
-          confirmButtonText: 'OK',
-        });
-      },
-    });
-  });
+          return;
+      }
+
+      // Validasi format email
+      const emailRegex = /^[^\\s@]+@[^\s@]+\\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+          Swal.fire({
+              title: 'Error!',
+              text: 'Format email tidak valid!',
+              icon: 'error',
+              confirmButtonText: 'OK',
+          });
+          return;
+      }
+
+      // Validasi password
+      if (password1 !== password2) {
+          Swal.fire({
+              title: 'Error!',
+              text: 'Password dan konfirmasi password tidak cocok!',
+              icon: 'error',
+              confirmButtonText: 'OK',
+          });
+          return;
+      }
+
+      if (password1.length < 8) {
+          Swal.fire({
+              title: 'Error!',
+              text: 'Password harus memiliki minimal 8 karakter.',
+              icon: 'error',
+              confirmButtonText: 'OK',
+          });
+          return;
+      }
+
+      // Kirim data ke server menggunakan AJAX
+      const formData = $(this).serialize();
+      $.ajax({
+          url: './helper/submit_registration.php', // URL ke backend
+          type: 'POST',
+          data: formData,
+          dataType: 'json',
+          success: function (response) {
+              if (response.status === 'success') {
+                  Swal.fire({
+                      title: 'Berhasil!',
+                      text: response.message,
+                      icon: 'success',
+                      confirmButtonText: 'OK',
+                  }).then(() => {
+                      window.location.href = './user/login.php'; // Redirect ke halaman login
+                  });
+              } else {
+                  Swal.fire({
+                      title: 'Error!',
+                      text: response.message,
+                      icon: 'error',
+                      confirmButtonText: 'OK',
+                  });
+              }
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+              console.error('AJAX Error:', textStatus, errorThrown);
+              Swal.fire({
+                  title: 'Error!',
+                  text: 'Terjadi kesalahan pada server. Silakan coba lagi nanti.',
+                  icon: 'error',
+                  confirmButtonText: 'OK',
+              });
+          },
+      });
+
+
 
   // Navbar scroll effect
   document.addEventListener('scroll', () => {
@@ -71,15 +103,15 @@ $(document).ready(function () {
   const carousel = document.querySelector('#testimonial-carousel');
   if (carousel) {
     new bootstrap.Carousel(carousel, {
-      interval: 5000, // Waktu antar slide (ms)
-      wrap: true, // Loop kembali ke awal setelah slide terakhir
+      interval: 5000,
+      wrap: true,
     });
   }
 
   // BMI Calculator
   function calculateBMI() {
     const weight = parseFloat(document.getElementById('weight').value);
-    const height = parseFloat(document.getElementById('height').value) / 100; // Convert cm to meters
+    const height = parseFloat(document.getElementById('height').value) / 100;
 
     if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
       document.getElementById('bmi-value').textContent =
@@ -111,8 +143,8 @@ $(document).ready(function () {
   const trainersCarousel = document.querySelector('#trainers-carousel');
   if (trainersCarousel) {
     new bootstrap.Carousel(trainersCarousel, {
-      interval: 3000, // Waktu rotasi (ms)
-      pause: 'hover', // Carousel berhenti saat di-hover
+      interval: 3000,
+      pause: 'hover',
     });
   }
 
@@ -120,26 +152,6 @@ $(document).ready(function () {
   function openMaps() {
     window.open('https://goo.gl/maps/examplelink', '_blank');
   }
-
-  // Toggle password visibility
-  document
-    .querySelectorAll('[id^="togglePassword"]')
-    .forEach(function (button) {
-      button.addEventListener('click', function () {
-        const passwordInput = document.querySelector(
-          `#${button.id.replace('toggle', '')}`
-        );
-        const passwordIcon = button.querySelector('i');
-
-        if (passwordInput.type === 'password') {
-          passwordInput.type = 'text';
-          passwordIcon.classList.remove('bi-eye-slash');
-          passwordIcon.classList.add('bi-eye');
-        } else {
-          passwordInput.type = 'password';
-          passwordIcon.classList.remove('bi-eye');
-          passwordIcon.classList.add('bi-eye-slash');
-        }
-      });
-    });
+});
+});
 });

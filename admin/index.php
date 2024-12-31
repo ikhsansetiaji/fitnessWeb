@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -110,12 +111,14 @@
                 height: auto;
                 position: static;
             }
+
             #content {
                 margin-left: 0;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Sidebar -->
     <aside id="sidebar">
@@ -136,11 +139,11 @@
                     <i class="fas fa-box"></i> Menu Paket
                 </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a href="#" class="nav-link" data-url="reports.php" onclick="loadPage(this)">
                     <i class="fas fa-chart-line"></i> Reports
                 </a>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a href="#" class="nav-link" data-url="../admin/menu_staff/menu_staff.php" onclick="loadPage(this)">
                     <i class="fas fa-cogs"></i> Menu Staff
@@ -200,10 +203,10 @@
                 url: url,
                 method: 'GET',
                 dataType: 'html',
-                success: function (data) {
+                success: function(data) {
                     $('#main-content').html(data);
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     console.error('Failed to load content:', status, error);
                     $('#main-content').html(`
                         <div class="alert alert-danger">
@@ -215,7 +218,7 @@
         }
 
         // Automatically load Dashboard on page load
-        $(document).ready(function () {
+        $(document).ready(function() {
             const defaultLink = document.querySelector('a[data-url="../admin/dashboard/dashboard.php"]');
             if (defaultLink) {
                 loadPage(defaultLink);
@@ -223,4 +226,5 @@
         });
     </script>
 </body>
+
 </html>

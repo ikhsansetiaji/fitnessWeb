@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validasi input
     if (empty($username) || empty($password)) {
         $_SESSION['error_message'] = "Harap isi semua kolom.";
-        header('Location: ../login.php');
+        header('Location: ../admin/login.php');
         exit();
     }
 
@@ -39,27 +39,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Redirect berdasarkan peran pengguna
                 if ($username === 'admin') {
-                    header('Location: ../routes/index.php?page=admin');
-                } elseif ($username === 'staff') {
-                    header('Location: ../routes/index.php?page=staff');
+                    header('Location: ../admin/index.php');
                 } else {
-                    header('Location: ../../index.php?page=user');
+                    header('Location: ../admin/login.php');
                 }
                 exit();
             } else {
                 $_SESSION['error_message'] = "Password salah.";
-                header('Location: ../login.php');
+                header('Location: ../admin/login.php');
                 exit();
             }
         } else {
             $_SESSION['error_message'] = "Username tidak ditemukan.";
-            header('Location: ../login.php');
+            header('Location: ../admin/login.php');
             exit();
         }
     } catch (Exception $e) {
         error_log("Error: " . $e->getMessage());
         $_SESSION['error_message'] = "Terjadi kesalahan pada sistem. Silakan coba lagi.";
-        header('Location: ../login.php');
+        header('Location: ../admin/login.php');
         exit();
     }
 }
